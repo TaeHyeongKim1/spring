@@ -33,13 +33,13 @@
       ">
     
       
-<context:component-scan base-package="a01_diexp.z05_vo"/>
-<bean id="cpu01" class="a01_diexp.z05_vo.Cpu">
-	<constructor-arg value="AMD"/>
-	<constructor-arg value="3.5GHZ 12CORE"/>
-</bean>
-<bean id="cpu02" class="a01_diexp.z05_vo.Cpu">
-	<constructor-arg value="Intel"/>
-	<constructor-arg value="4GHZ 18CORE"/>
-</bean>
+<context:component-scan base-package="a01_diexp.z06_mvc">
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+</context:component-scan>
+<!-- 
+기본 Component에서 추가적으로 Controller, Service, Repository annotation으로 객체 추가 
+ -->
+
       </beans>

@@ -31,17 +31,33 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd   
       ">
-      <context:annotation-config/>
-      
-      <bean class="springweb.a01_start.A01_Controller"/>
-      <bean class="springweb.a01_start.A02_Controller"/>
-      <bean class="springweb.a01_start.A03_Controller"/>
-      <bean class="springweb.a01_start.A04_Controller"/>
-      <bean class="springweb.a02_mvc.A01_EmpController"/>
-  	 <bean class="springweb.a02_mvc.A02_EmpService "/>
-  	 <bean class="springweb.a02_mvc.A04_EmpDao"/>
-      
-      	<!-- 라이브러리 추가 -->
+<context:component-scan base-package="springweb">
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+   </context:component-scan>   
+   <!-- 
+   1. db연결처리: dbcp(database connection pool) 이용해서 연결/ destory-method ="close" 종료시 처리 기능메서드 
+    -->
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+   	<property name="driverClassName" value ="oracle.jdbc.driver.OracleDriver"/>
+   	<property name="url" value ="jdbc:oracle:thin:@localhost:1512:xe"/>
+   	<property name="username" value ="scott"/>
+   	<property name="password" value ="tiger"/>
+   </bean>
+   <!-- 
+   2. mybatis연동
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"/>
+    </bean>
+   <!-- 3. mybatis가 만드는 실제 객체를 생성하는 기준 interface dao가 있는 패키지 위치 지정 -->
+   <bean class ="org.mybatis.spring.mapper.MapperScannerConfigurer">
+   		<property name="basePackage" value=""/>
+   </bean>
+   
+   
+   <!-- 라이브러리 추가 -->
     <bean id="btnViewResolver"
        class ="org.springframework.web.servlet.view.BeanNameViewResolver">
        <property name="order" value="0"></property>   
@@ -54,5 +70,4 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
        <property name="order" value="1"></property>
     </bean>
-
-      </beans>
+</beans>

@@ -10,13 +10,13 @@ public class A01_Controller {
 	@Autowired
 	private A02_Service service;
 	
-	
-	//요청처리 : url + 요청key/val
+	// 요청처리 : url + 요청key/val
 	@RequestMapping("/empList.do")
-	public String getEmpList(String sch, Model d) {
-		d.addAttribute("empList", service.getList(sch));
-		System.out.println("서비스단 호출"+service.getList(sch));
-		return "";  //view단 호출
+	public String  getEmpList(String sch, Model d) { // String sch : 요청값 처리
+		System.out.println("# controller 호출 #");
+		//d.addAttribute("empList", service.getList(sch)); // Model d를 통해 모델 데이터 처리..
+		System.out.println("서비스단 호출:"+service.getList(sch));
+		return "jsp View 호출/json view 호출";//view단호출..
 	}
 	
 	
