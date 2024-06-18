@@ -18,7 +18,7 @@ public class DIExp18 {
       cpu.setCampany("인텔");
       cpu.setLevel("i9");
       computer.setCompany("삼성");
-      computer.setCpu(cpu);      
+      computer.setCpu(cpu);  //객체안에 객체를 할당하는 코드가 있음      
       computer.useCpu();
       ctx.close();
       
