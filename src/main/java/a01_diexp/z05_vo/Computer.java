@@ -1,13 +1,16 @@
 package a01_diexp.z05_vo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Computer {
 	private String Company;
 	//코드상 자동으로 객체할당 처리(컨테이너 안에있는경우)
+	//컨테이너 안에 여러 객체가 선언되어있고, 특정 객체를 autowiring 하고 싶을떄 처리하는 방법이 Qualifier방법이다,
 	@Autowired
+	@Qualifier("cpu01") //할당할 객체 지정 
 	private Cpu cpu;
 	public String getCompany() {
 		return Company;
