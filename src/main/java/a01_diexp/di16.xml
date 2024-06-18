@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:task="http://www.springframework.org/schema/task" 
+   xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xmlns:sec="http://www.springframework.org/schema/security"
+   xmlns:tx="http://www.springframework.org/schema/tx" 
+    
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd       
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd   
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd   
+      ">
+    
+      
+      <bean id="obj" class="java.lang.Object"/>
+<!-- 
+# 의존성 자동 주입
+1. 컨테이너 객체는 bean안에 객체가 선언되고 호출될때, 각 객체 간에 연관성에 의해서 사용할때가 많다
+2. 예를 들어 EmpController는 EmpDao가 객체로 선언되어 있으면 ref="dao"등을 형태로 특정 기능메서드나 필드가 할당되어 사용하는경우를말함
+3. 이와 같이 연관관계가 구체적으로 container코드로 설정하여 사용하는 경우도 있지만, 특정한 경우에는 객체를 자동으로 연관되어 할당되게
+할수도 있다
+4. 이를 autowiring(자동연관) 설정이라고 한다. 이번 장에서는 이러한 자동 연관 설정 옵션이 어떤것이 있는지 살피고, 단계별 자동
+연관관계 설정을 해보도록 한다.
+5. 기본형식
+	1) 객체 선언..
+		autowire="자동연관옵션"
+	2) 자동연관 옵션
+	-byName : 할당할 메서드 type있고, 할당할 id가 set property와 동일할때 자동할당 처리	 
+	-byType : 할당될 유형이 서넝ㄴ되어있으면 자동할당처리
+	-contstructor: 생성자의 type을 할당해서처리
+	-autodect : type이 있는지 여부를 할당해서 처리
+ -->
+	<bean id="hp1" class="a01_diexp.z01_vo.HandPhone">
+		<constructor-arg value="010-888-8888"/>
+		<constructor-arg value="샘숭갤러그"/>
+	</bean>
+	<bean id="hp2" class="a01_diexp.z01_vo.HandPhone">
+		<constructor-arg value="010-5555-9999"/>
+		<constructor-arg value="아이퍽"/>
+	</bean>
+	<bean id="hu" class="a01_diexp.z01_vo.HPUser" autowire="byName">
+	<constructor-arg value="허춘삼"/>
+	</bean>
+	<bean id="cpu" class="a01_diexp.z01_vo.Cpu">
+		<constructor-arg value="Intel i9 14900K"/>
+		<constructor-arg value="인텔"/>
+	</bean>
+	<bean id="com" class="a01_diexp.z01_vo.Computer" autowire="byType">
+		<constructor-arg value="조립식컴퓨터"/>
+	</bean>
+		<!--  byName을 설정하면 할당할 수 있는 여러개의 객체들 중에서 메서드 property를 확인하여
+	할당 처리하는 것을 알 수 있다. -->
+	
+      </beans>
