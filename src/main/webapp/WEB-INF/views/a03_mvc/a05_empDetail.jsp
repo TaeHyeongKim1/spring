@@ -69,7 +69,7 @@
 	});
 	var msg = "${msg}"     
 	var proc = "${proc}"
-	if(msg!=""){    // 공백이ㅠ아닐 때 처리..
+	if(msg!=""){    // 공백이 아닐 때 처리..
 		alert(msg)
 		if(proc=="삭제"){
 			alert("조회화면이동");
