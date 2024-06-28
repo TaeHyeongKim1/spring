@@ -35,7 +35,8 @@
 
 <body>
 <div class="jumbotron text-center">
-  <h2>get 방식으로 호출되고, post방식으로 전송 처리</h2>
+  <h2>다중 처리1..${param.weeksche}</h2>
+  <h2>다중 처리2..${param.pay}</h2>
 
 </div>
 <%-- 

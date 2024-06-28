@@ -35,7 +35,8 @@
 
 <body>
 <div class="jumbotron text-center">
-  <h2>get 방식으로 호출되고, post방식으로 전송 처리</h2>
+  <h2>연습예제 get or post</h2>
+  <h3><%=request.getMethod()%></h3>
 
 </div>
 <%-- 

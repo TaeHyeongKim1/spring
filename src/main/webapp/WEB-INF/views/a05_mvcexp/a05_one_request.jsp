@@ -28,28 +28,39 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
+		var food = "${param.food}"
+		if(food!='') alert(food)
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>get 방식으로 호출되고, post방식으로 전송 처리</h2>
+  <h2>요청값 연습</h2>
+  <h3>요청값(음식):${param.food}</h3>
+  <a href="call106.do?food=아이스크림">아이스크림(요청값 link로 전달)</a><br>
+  <h3 onclick="call01()">요청값을 전달할까요? 탕후루!! </h3>
+  <script type="text/javascript">
+  	function call01(){
+  		location.href="call106.do?food=탕후루!!"
+  	}
+  </script>
+  <%--
+  1. 단계 a href
+  2. 이벤트 location
+  3. form
+  ex)http://localhost:7080/springweb/call107.do?music=IAM	
+   --%>
 
 </div>
 <%-- 
 		
 --%>
 <div class="container">
-	<form id="frm01" class="form"  method="post">
+	<form id="frm01" class="form"  method="get">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input placeholder="제목" name=""  class="form-control mr-sm-2" />
-	    <input placeholder="내용" name=""  class="form-control mr-sm-2"/>
-	    <button class="btn btn-info" type="submit">Search</button>
-	    <button class="btn btn-success" 
-	    	data-toggle="modal" data-target="#exampleModalCenter"
-	        type="button">등록</button>
+	    <input placeholder="음식입력" name="food"  class="form-control mr-sm-2" />
+	    <button class="btn btn-info" type="submit">전송</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
