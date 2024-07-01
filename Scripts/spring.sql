@@ -66,7 +66,30 @@ where deptno=10;
 
 
 
+CREATE TABLE member01(
+   id varchar2(50),
+   pwd varchar2(20),
+   name varchar(50),
+   auth varchar(10),
+   point number
+);
 
+/*
+public class Member{
+   private String id;
+   private String pwd;
+   private String name;
+   private String auth;
+   private int point;
+}
+*/
+SELECT * FROM member01;
+INSERT INTO member01 values('himan', '7777', '홍길동', '관리자', 10000);
+SELECT *
+FROM member01
+WHERE id LIKE '%%'
+AND name LIKE '%%'
+AND auth LIKE '%%';
 
 
 

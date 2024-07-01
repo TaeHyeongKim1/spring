@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import springweb.z01_vo.Dept;
+import springweb.z01_vo.Member;
 
 public interface A02_ExpDao {
 	/*
@@ -46,6 +47,13 @@ public interface A02_ExpDao {
 	*/
 	@Insert("INSERT INTO dept01 values(#{deptno},#{dname},#{loc})")                                  
 	int insertDept01(Dept ins);     	
+	
+	@Select("select *\r\n"
+	         + "from member01\r\n"
+	         + "where id like #{id}\r\n"
+	         + "and name like #{name}\r\n"
+	         + "and auth like #{auth}")
+	   List<Member> memberList(Member sch);
 	
 }
 

@@ -28,40 +28,42 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var music = "${param.music}"
-		if(music!='') alert(music)
-		$("h2").append(music)
+	
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>요청값 연습</h2>
-  <h3>요청값(음식):${param.music}</h3>
-  <a href="call107.do?music=IAM">노래(요청값 link로 전달)</a><br>
-  <h3 onclick="call01()">요청값을 전달할까요? IAM </h3>
-  <script type="text/javascript">
-  	function call01(){
-  		location.href="call107.do?music=IAM"
-  	}
-  </script>
-  <%--
-  1. 단계 a href
-  2. 이벤트 location
-  3. form
-  ex)http://localhost:7080/springweb/call107.do?music=IAM	
-   --%>
+  <h2>객체를 요청값으로 받으면 어떤 세상이?</h2>
+  <h3>요청값처리?</h3>
+  <h3>${param.sname}</h3>
+  <h3>${param.kor}</h3>
+  <h3>${param.eng}</h3>
+  <h3>${param.math}</h3> 
+  <h3>모델데이터도 따라올까요??</h3>
+  <h3>${student.sname}</h3>
+  <h3>${student.kor}</h3>
+  <h3>${student.eng}</h3>
+  <h3>${student.math}</h3>
 
 </div>
 <%-- 
 		
 --%>
 <div class="container">
-	<form id="frm01" class="form"  method="get">
+	<form id="frm01" class="form"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input placeholder="노래입력" name="music"  class="form-control mr-sm-2" />
-	    <button class="btn btn-info" type="submit">전송</button>
+  		<%-- 
+  		--%>
+	    <input placeholder="학생명" name="sname"  class="form-control mr-sm-2" />
+	    <input  placeholder="국어점수" name="kor" value="0"  class="form-control mr-sm-2"/>
+	    <input placeholder="영어점수" name="eng"  value="0"   class="form-control mr-sm-2"/>
+	    <input placeholder="수학점수" name="math"  value="0"   class="form-control mr-sm-2"/>
+	    <button class="btn btn-info" type="submit">등록</button>
+	    <button class="btn btn-success" 
+	    	data-toggle="modal" data-target="#exampleModalCenter"
+	        type="button">등록</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
@@ -117,5 +119,4 @@
   </div>
 </div>
 </body>
-
 </html>

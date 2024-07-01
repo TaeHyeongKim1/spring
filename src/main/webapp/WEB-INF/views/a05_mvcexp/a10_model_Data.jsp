@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
+  
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,62 +29,59 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var music = "${param.music}"
-		if(music!='') alert(music)
-		$("h2").append(music)
+		var name= "${name}"
+		alert(name)
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>요청값 연습</h2>
-  <h3>요청값(음식):${param.music}</h3>
-  <a href="call107.do?music=IAM">노래(요청값 link로 전달)</a><br>
-  <h3 onclick="call01()">요청값을 전달할까요? IAM </h3>
-  <script type="text/javascript">
-  	function call01(){
-  		location.href="call107.do?music=IAM"
-  	}
-  </script>
-  <%--
-  1. 단계 a href
-  2. 이벤트 location
-  3. form
-  ex)http://localhost:7080/springweb/call107.do?music=IAM	
-   --%>
-
+  <h2>타이틀</h2>
+	<c:forEach var="pt" items="${points }" >
+		<h3>${pt }</h3>
+	</c:forEach>
+	<H3>번호:${st1.no }</H3>
+	<H3>이름:${st1.sname }</H3>
+	<H3>점수:${st1.kor }</H3>
+	
+	
 </div>
 <%-- 
 		
 --%>
 <div class="container">
-	<form id="frm01" class="form"  method="get">
+	<form id="frm01" class="form"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input placeholder="노래입력" name="music"  class="form-control mr-sm-2" />
-	    <button class="btn btn-info" type="submit">전송</button>
+	    <input placeholder="제목" name=""  class="form-control mr-sm-2" />
+	    <input placeholder="내용" name=""  class="form-control mr-sm-2"/>
+	    <button class="btn btn-info" type="submit">Search</button>
+	    <button class="btn btn-success" 
+	    	data-toggle="modal" data-target="#exampleModalCenter"
+	        type="button">등록</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
-   	<col width="10%">
-   	<col width="50%">
-   	<col width="15%">
-   	<col width="15%">
-   	<col width="10%">
+   	<col width="25%">
+   	<col width="25%">
+   	<col width="25%">
+   	<col width="25%">
+  
     <thead>
     
       <tr class="table-success text-center">
         <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회</th>
+        <th>이름</th>
+        <th>국어</th>
+        <th>수학</th>
+      
       </tr>
     </thead>	
     <tbody>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<c:forEach var="st2" items="${student}">   	
+    	<tr><td>${st2.sname }</td><td>${st2.kor }</td><td>${st2.eng}</td><td>${st2.math }</td></tr>
+   </c:forEach>
+ 
     </tbody>
 	</table>    
     
@@ -117,5 +115,4 @@
   </div>
 </div>
 </body>
-
 </html>
