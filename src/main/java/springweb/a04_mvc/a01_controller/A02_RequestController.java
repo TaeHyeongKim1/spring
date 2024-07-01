@@ -180,7 +180,7 @@ public class A02_RequestController {
 	public String call1113(Model d) {
 		d.addAttribute("name", "홍길동");
 		d.addAttribute("points", new int[] {70,80,90});
-		d.addAttribute("st1", new Student(1,"신길",30));
+		
 		
 	List<Student> student = new ArrayList<Student>();
 	student.add(new Student("홍길동",90,80,70));

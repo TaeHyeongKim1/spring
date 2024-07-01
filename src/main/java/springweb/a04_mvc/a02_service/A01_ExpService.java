@@ -7,23 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springweb.a04_mvc.a03_dao.A01_ExpDao;
+import springweb.a04_mvc.a03_dao.A02_ExpDao;
 import springweb.a04_mvc.z01_vo.Dept01;
 import springweb.a04_mvc.z01_vo.Emp01;
 import springweb.a04_mvc.z01_vo.Emp02;
 import springweb.a04_mvc.z01_vo.EmpDept;
 import springweb.a04_mvc.z01_vo.Emp_Dept01;
 import springweb.a04_mvc.z01_vo.Employee01;
+import springweb.z01_vo.Dept;
+import springweb.z01_vo.Member;
 
 @Service
 public class A01_ExpService {
 	@Autowired(required=false)
 	private A01_ExpDao dao; 
+	
+	@Autowired(required=false)
+	private A02_ExpDao dao2;
 	// dao = new A01_ExpDaoImp();(mybatis가 만들어준 실제 객체) 처리해 주는 Autowired
 	public void daoExp02() {
-		System.out.println("매개변수1개 전송(사원번호==>직책):"
-				+dao.getJob(7369));
+		System.out.println("매개변수1개 전송(사원번호==>직책):"+dao2.getHiSal(2));
+		//dao2.getEmpnos(10);
+		
+		for(int empno:dao2.getEmpnos(10)) {
+			System.out.println(empno);
+		}
+		for(String ename:dao2.getEnames(1000, 3000)) {
+			System.out.println(ename);
+		}
+		System.out.println("등록처리1:"+dao2.insertDept01(new Dept(24,"기획2","수원3")));
+		
 	}
-	
 	public void daoExp01() {
 		System.out.println("1. 단일 데이터 가져오기:"+
 					dao.getCount());
@@ -137,7 +151,17 @@ public class A01_ExpService {
 	public	List<String> getEnames2(){
 		return dao.getEnames2();
 	}
-
+	// memberList 호출 처리..
+	public List<Member> memberList(Member sch){
+		if(sch.getId()==null) sch.setId("");
+		if(sch.getName()==null) sch.setName("");
+		if(sch.getAuth()==null) sch.setAuth("");
+		
+		sch.setId("%"+sch.getId()+"%");
+		sch.setName("%"+sch.getName()+"%");
+		sch.setAuth("%"+sch.getAuth()+"%");
+		return dao2.memberList(sch);
+	}
 		
 	
 	

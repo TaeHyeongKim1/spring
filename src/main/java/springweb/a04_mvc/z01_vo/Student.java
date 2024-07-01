@@ -1,26 +1,37 @@
 package springweb.a04_mvc.z01_vo;
 
 public class Student {
-	   private String sname;
-	   private int kor;
-	   private int eng;
-	   private int math;
-	   private int no;
-	public int getNo() {
-		return no;
+//sname=홍길동&kor=70&eng=80&math=80
+	private String sname;
+	private int kor;
+	private int eng;
+	private int math;
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public Student(String sname, int kor, int eng, int math) {
+		super();
+		this.sname = sname;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
 	}
 	public String getSname() {
 		return sname;
 	}
+	// sname=
+	// String sname = null;
+	// String sname = "";
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
 	public int getKor() {
 		return kor;
 	}
+	// kor=
+	// int kor = Integer.parseInt(null);
+	// int kor = Integer.parseInt("");
 	public void setKor(int kor) {
 		this.kor = kor;
 	}
@@ -36,21 +47,5 @@ public class Student {
 	public void setMath(int math) {
 		this.math = math;
 	}
-	public Student(String sname, int kor, int eng, int math) {
-		super();
-		this.sname = sname;
-		this.kor = kor;
-		this.eng = eng;
-		this.math = math;
-	}
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Student(int no, String sname, int kor ) {
-		super();
-		this.sname = sname;
-		this.kor = kor;
-		this.no = no;
-	}
-	      }
+	
+}
