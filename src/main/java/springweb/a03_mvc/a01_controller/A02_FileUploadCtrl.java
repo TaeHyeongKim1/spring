@@ -19,18 +19,19 @@ public class A02_FileUploadCtrl {
 	private A02_FileUploadService service;
 
 	// http://localhost:7080/springweb/downLoad.do?fname=a01_spring.txt  
-	// http://192.168.0.17:7080/springweb/downLoad.do?fname=a01_spring.txt  
+	// http://192.168.0.6:7080/springweb/downLoad.do?fname=a01_spring.txt  
 	// 호출시 특정 파일을 다운로드 처리..
+	/*
 	@GetMapping("downLoad.do")
 	public String downLoad(@RequestParam("fname") String fname, Model d) {
 		d.addAttribute("downloadFile", fname);
 		return "downloadView";// downloadView downloadFile
 	}
-	
-	// http://192.168.0.17:7080/springweb/upLoadList.do
+	*/
+	// http://192.168.0.6:7080/springweb/upLoadList.do
 	// http://localhost:7080/springweb/upLoadList.do
 	@GetMapping("upLoadList.do")
-	public String upLoadList(Model d) {
+	public String upLoadList(Model d){
 		d.addAttribute("flist", service.getFileList());
 		return "WEB-INF\\views\\a04_fileUpload\\a03_fileList.jsp";
 	}
