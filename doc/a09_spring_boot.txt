@@ -1,0 +1,26 @@
+# 설치
+1. sts다운로드
+2. 파일명 변경후 위치 로이동
+3. cmd 창    java -jar sts.jar 
+
+4. 폴드 생성
+	C:\a00_javaexp\z01_bootworkspace
+	
+	
+	#스프링 부트
+	
+	0. 필요한 lib online으로 받기
+	board\pom.xml : online상으로 @@@.jar 
+	==> container 설정도 같이 처리 (maven.jar)
+	
+	1. 컨테이너 설정
+	pom.xml에 받는 기준으로 객체들을 설정 처리 
+	resources\application.properties
+	
+	
+	기본적인 mvc 패턴과 호출 처리 공통적인부분은 내부적으로 설정 처리되어 있음
+	
+	2. 웹서버
+		스프링 부트는 tomcat 최신 버전을 연동되어 처리되어 있음.
+		
+	server.port =5050 // 서버 포트 번호 설정

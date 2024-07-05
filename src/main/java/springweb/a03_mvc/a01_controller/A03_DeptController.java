@@ -13,6 +13,7 @@ public class A03_DeptController {
 	@Autowired(required=false)
 	private A03_DeptService service;
 	
+	// http://localhost:7080/springweb/deptMyList.do
 	@RequestMapping("deptMyList.do")
 	public String deptMyList(Dept sch, Model d) {
 		d.addAttribute("deptList", service.getDeptList(sch));
