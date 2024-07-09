@@ -25,4 +25,7 @@ CREATE SEQUENCE cal_seq;
 					INSERT INTO calendar values(cal_seq.nextval,#{title},#{writer},#{start},
 					#{end},#{content},#{backgroundColor},#{textColor},#{allDay},#{url})
  
-   */				
+   */			
+				COMMIT;
+			
+			SELECT * FROM calendar;

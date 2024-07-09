@@ -27,6 +27,11 @@ body {
 	max-width: 1100px;
 	margin: 0 auto;
 }
+.input-group-text{width:100%;background-color:linen;
+		color:black;font-weight:bolder;}
+.input-group-prepend{width:35%;}
+	
+
 </style>
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
@@ -35,10 +40,15 @@ body {
 <script src="${path}/a00_com/dist/index.global.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#showModel").hide()
+		
+
 
 	});
 
+
 	document.addEventListener('DOMContentLoaded', function() {
+		
 		var calendarEl = document.getElementById('calendar');
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -52,6 +62,27 @@ body {
 			selectable : true,
 			selectMirror : true,
 			select : function(arg) {
+				console.log("# 캘린터 기본 속성 확인 #")
+				//console.log(arg)
+				console.log(arg.startStr)
+				console.log(arg.endStr)
+				console.log(arg.allDay)
+				$("#modalTitle").text("일정 등록")
+				$("form")[0].reset()
+				$("#regBtn").show()
+				$("#start").val(arg.start.toLocaleString())
+				$("[name=start]").val(arg.startStr)
+				$("#end").val(arg.end.toLocaleString())
+				$("[name=end]").val(arg.endStr)
+				$("#allDay").val(""+arg.allDay)
+				$("[name=allDay]").val(arg.allDay?1:0)
+				
+				$("#showModel").click() //강제이벤트 처리.
+				
+				
+				
+				
+				/*
 				var title = prompt('Event Title:');
 				if (title) {
 					calendar.addEvent({
@@ -61,6 +92,7 @@ body {
 						allDay : arg.allDay
 					})
 				}
+				*/
 				calendar.unselect()
 			},
 			eventClick : function(arg) {
@@ -70,69 +102,59 @@ body {
 			},
 			editable : true,
 			dayMaxEvents : true, // allow "more" link when too many events
-			events : [ 
-				{
-				title : '시작일정^^',
-				start : '2024-07-02'
-				},
-				{
-					title : '오늘의 일정(프로젝트!)',
-					start : '2024-07-05
-					'
+			events : function(info, successCallback, failureCallback){
+				// callList.do  //successCallback 함수를 매개변수로 사용함
+				$.ajax({
+					url:"callList.do",
+					
+					dataType:"json",
+					success:function(data){
+						console.log(data)
+						calendar.removeAllEvents()
+						successCallback(data.calList)
+						
 					}
-				, {
-				title : 'All Day Event',
-				start : '2024-07-01'
-			}, {
-				title : 'Long Event',
-				start : '2024-07-07',
-				end : '2024-07-10'
-			}, {
-				groupId : 999,
-				title : 'Repeating Event',
-				start : '2024-07-09T16:00:00'
-			}, {
-				groupId : 999,
-				title : 'Repeating Event',
-				start : '2024-07-16T16:00:00'
-			}, {
-				title : 'Conference',
-				start : '2024-07-11',
-				end : '2024-07-13'
-			}, {
-				title : 'Meeting',
-				start : '2024-07-12T10:30:00',
-				end : '2024-07-12T12:30:00'
-			}, {
-				title : 'Lunch',
-				start : '2024-07-12T12:00:00'
-			}, {
-				title : 'Meeting',
-				start : '2024-07-12T14:30:00'
-			}, {
-				title : 'Happy Hour',
-				start : '2024-07-12T17:30:00'
-			}, {
-				title : 'Dinner',
-				start : '2024-07-12T20:00:00'
-			}, {
-				title : 'Birthday Party',
-				start : '2024-07-13T07:00:00'
-			}, {
-				title : 'Click for Google',
-				url : 'http://google.com/',
-				start : '2024-07-28'
-			} ]
+					
+				})	
+			},
+			error:function(err){
+				console.log(err)
+				failureCallback(err)
+			}
 		});
 
 		calendar.render();
+		$("#regBtn").click(function(){
+			if(confirm("등록하시겠습니까?")){
+				ajaxFun("insertCalendar.do")
+			}
+		})	
+		function ajaxFun(url){
+			$.ajax({
+				type:"post",
+				url:url,
+				data:$("form").serialize(),
+				dataType:"json",
+				success:function(data){
+					alert(data.msg)
+					calendar.removeAllEvents()
+					calendar.addEventSource(data.calList)
+					$("#clsBtn").click()
+				},
+				error:function(err){
+					console.log(err)
+				}
+			})
+		}		
+		
+		
 	});
 </script>
 </head>
 
 <body>
 	<div class="jumbotron text-center">
-		<h2>캘린더</h2>
+		<h2 >캘린더</h2>
 	</div>
 	
 	<div class="container">
@@ -140,36 +162,100 @@ body {
 		
 		
 	</div>
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+	<script type="text/javascript">
+		
+	</script>
+	<div id="showModel" data-toggle="modal" data-target="#calModal"></div>
+	<div class="modal fade" id="calModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">타이틀</h5>
+					<h5 class="modal-title" id="modalTitle">타이틀</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				<%--
+				<style>
+.input-group-text{width:100%;background-color:linen;
+		color:black;font-weight:bolder;}
+.input-group-prepend{width:35%;}				
+				</style>
+				 --%>
 				<div class="modal-body">
 					<form id="frm02" class="form" method="post">
-						<div class="row">
-							<div class="col">
-								<input type="text" class="form-control" placeholder="사원명 입력"
-									name="ename">
+						<input type="hidden" name="id" value="0"/>
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">일정명</span>
 							</div>
-							<div class="col">
-								<input type="text" class="form-control" placeholder="직책명 입력"
-									name="job">
+							<input name="title" placeholder="입정 입력"  class="form-control" />	
+						</div>	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">작성자</span>
 							</div>
-						</div>
+							<input name="writer" placeholder="작성자 입력"  class="form-control" />	
+						</div>	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">시작일</span>
+							</div>
+							<input id="start" placeholder="시작일 입력"  class="form-control" />	
+							<input name="start" type="hidden"   />	
+						</div>	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">종료일</span>
+							</div>
+							<input id="end" placeholder="종료일 입력"  class="form-control" />	
+							<input name="end" type="hidden"   />	
+						</div>		
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">내용</span>
+							</div>
+							<textarea name="content" rows="5" cols="10" class="form-control"></textarea>			
+						</div>	
+																	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">배경색상</span>
+							</div>
+							<input name="backgroundColor" value="#0099cc" type="color" placeholder="색상선택"  class="form-control" />	
+						</div>	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">글자색상</span>
+							</div>
+							<input name="textColor"   value="#ccffff"  type="color" placeholder="글자선택"  class="form-control" />	
+						</div>							
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">종일여부</span>
+							</div>
+							<select id="allDay"  class="form-control" >
+								<option value="true">종일</option>
+								<option value="false">시간</option>
+							</select>	
+							<input type="hidden" name="allDay"/>	
+						</div>	
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">연관페이지</span>
+							</div>
+							<input name="urlLink" placeholder="연관 url링크 주소 입력"  class="form-control" />	
+						</div>																										
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button id="regBtn" type="button" class="btn btn-primary">등록</button>				
+					<button id="clsBtn" type="button" class="btn btn-secondary"
+						data-dismiss="modal">창닫기</button>
+
 				</div>
 			</div>
 		</div>
