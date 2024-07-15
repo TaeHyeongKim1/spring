@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a03_mvc.a02_service.A04_fulService;
 import springweb.z01_vo.Calendar;
@@ -34,7 +35,19 @@ public class A04_FullCalController {
 		return "jsonView";
 	}
 	
-	
+	@PostMapping("updateCalendar.do")
+	public String updateCalendar(Calendar upt, Model d) {
+		d.addAttribute("msg",service.updateCalendar(upt));
+		d.addAttribute("calList",service.getListCalendar());
+		return "jsonView";
+	}
+	@PostMapping("deleteCalendar.do")
+	public String deleteCalendar(@RequestParam("id") int id, Model d) {
+		d.addAttribute("msg",service.deleteCalendar(id));
+		d.addAttribute("calList",service.getListCalendar());
+		return "jsonView";
+		
+	}
 	
 	
 }

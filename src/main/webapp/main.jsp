@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    import="backweb.vo.*" 
-    import="backweb.a04_database.*" 
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -37,7 +35,7 @@
 
 <body>
 <div class="jumbotron text-center">
-  <h2>세번째 스프링</h2>
+  <h2>타이틀</h2>
 
 </div>
 <%-- 

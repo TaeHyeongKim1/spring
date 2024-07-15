@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    import="backweb.vo.*" 
-    import="backweb.a04_database.*" 
+  
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -29,16 +28,28 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
+//? $(document) : 전체 DOM객체가 메모리로 로딩된후에 처리할 내용을 선언
 	$(document).ready(function(){
-	
+		//$("h2") : DOM 객체를 호출하여 text() 해당 객체 출력할 문자열을 지정
+		$("h2").text("jquery 본격적으로 시작")
+		$("p").html("jquery 본격적으로 시작")
+		//text(): 기본 문자열 처리
+		// html(): html코드를 해석 처리해준다.
+		// append(): 기존의 데이터에서 추가적으로 넣을 내용을 처리해 준다.
+		$("p").append("<h2>추가 코드 시작!</h2>")
+		
+		var cnt= 1;
+		$("h2").text("클릭해보세요").click(function(){
+			$("p").append("<h3>카운트" +(cnt++)+ "</h3>")
+		})
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>세번째 스프링</h2>
-
+  <h2>타이틀</h2>
+	<p></p>
 </div>
 <%-- 
 		

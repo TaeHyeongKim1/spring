@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    import="backendweb.z01_vo.*"
-    import="backendweb.d01_dao.*"
-    import="backweb.vo.*"   
-    import="backweb.a04_database.*"
-    
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -40,7 +35,7 @@
 
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
+  <h2>스프링 시작!!</h2>
 
 </div>
 <%-- 

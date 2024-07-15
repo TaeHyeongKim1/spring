@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    import="backweb.vo.*" 
-    import="backweb.a04_database.*" 
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,6 +19,10 @@
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css" >
 <style>
 	td{text-align:center;}
+	.addWidth{
+		width:400px;background:red;color:yellow;
+	}
+	.chH3{ font-size:40pt;border:1px solid blue;}
 </style>
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
@@ -30,14 +32,29 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
+		$("h2").click(function(){
+			$(this).addClass("addWidth")
+			$("h3").removeClass("chH3")
+		})
+		// h3를 클릭시, 상단에 선언된 글자크기 20pt로 테두리 1px solid blue;로 처리 하세요. 하세요..
+		$("h3").click(function(){
+			$(this).addClass("chH3")
+			$("h2").removeClass("addWidth")
+		})
+		$("h1").click(function(){
+			$("h2").toggleClass("addWidth")
+			$("h3").toggleClass("chH3")
+		})
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>세번째 스프링</h2>
+  <h1>줬다/뺏다!!</h1>
+  <h2>클래스 적용해 볼까요?</h2>
+  <h3>오늘은 jquery 날!!</h3>
+  
 
 </div>
 <%-- 

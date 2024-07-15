@@ -103,11 +103,90 @@
 	
 	
 	
+# 날짜 처리
+-실제 DB에 저장하고, 요청값으로 전달할 형식(ISO형식-날짜.toLocaleString())
+   : 2024-07-03TI15:00:00+09:00 : GMT 
+-화면에 보일 형식(날짜.toLocaleString())
+   : 2024. 7. 11 오전 12:00:00
 
+ex) jsp (a07_fullcalendar.jsp)         
+$("#start").val(arg.start.toLocaleString())
+//보이는 날짜 처리 형식
+$("[name=start]").val(arg.startStr)
+//실제 저장할 날짜 처리 형식
+$("#end").val(arg.end.toLocaleString())
+$("[name=end]").val(arg.endStr)
+
+<div class="input-group-prepend ">
+<span class="input-group-text  justify-content-center">시 작(일/시)</span>
+</div>
+<input id="start" class="form-control" /><!-- 화면에 보일 날짜/시간 -->
+<input name="start" type="hidden"   /><!-- 실제 저장할 날짜 처리 형식-->   
+</div>      
+
+# boolean 처리저장
+1. javascript/java에서 boolean 형식, 즉 true/false값이 있다.
+2. 그러나, databasa(DB)에서는 boolean 타입자체가 존재하지 않는다.
+3. 그리하여, DB에서 char(1)/varchar2(1)로 설정하면, 
+    1/0을 입력하면서 자동형변환되어, boolean 속성값(true/false)을 가져올 수 있다.
+    ==> 1: true/ 0: false
+4. json 형식에서는, 이러한 vo의 속성을 자동으로 로딩되어 boolean형식으로 처리해준다.
+
+ex)
+$("#allDay").val(""+arg.allDay)
+//문자열로 형변환 설정
+$("[name=allDay]").val(arg.allDay?1:0)
+//문자열을 vo boolean형식으로 전달하기 위한 설정 
+<select id="allDay"  class="form-control" >
+<option value="true">종일</option>
+<option value="false">시간</option>
+</select>   
+<input type="hidden" name="allDay"/>      
+
+$.ajax({
+type:"post",
+url:url,
+data:$("form").serialize(),
+//form 안에 있는 name/value 속성값(요청값)을 key=val 변환처리
+dataType:"json",
+success:function(data){
+//등록 완료된 후, 등록 성공/실패 메세지와 다시 등록된 내용을 
+ //적용한 화면을 로딩하기 위한 처리
+    
+alert(data.msg)
+calendar.removeAllEvents()
+calendar.addEventSource(data.calList)
+//등록완료 된 후, 등록 모달창 닫기 처리
+$("#clsBtn").click()
+},   
 
  
-		 
-		 
+# 상세화면 로딩 처리
+1. 특정한 일정을 클릭시, 모달창으로 상세 데이터를 로딩하는 것을 말한다.
+2. 기본적으로 모든 속성을 lib내부에서 database에 있는 데이터를 할당한 상태
+3. 상세화면의 데이터를 위한 ajax 처리는 필요하지않는다.
+4. 단, 상세화면클릭시 , 매개변수로 가져오는 캘린더 정보를모델 form에 할당하는 작업을 하여야 한다.
+5. 개발순서
+	1) 상세화면을 위한 모달 화면 구성 추가
+		등록/삭제 버튼
+	2) 일정 내용 클릭시 처리되는 이벤트확인 및 이벤트 처리(eventClick)
+		타이틀 변경
+		등록과 수정 삭제버튼에 대한 show()/hide()처리 - 등록 버튼시에도 구분처리 
+		매개변수로 받아오는 속성값(fullcalendar자체 DB에서 할당된 데이터)을 통해서 모달 form 데이터 할당 처리
+		모달창 로딩처리(모달창 로딩 이벤트처리)
+
+# 수정/ 삭제 처리		 
+1. 요구 사항 내용
+	1) 상세화면에서 데이터를 변경후, 수정삭제 처리시, 해당내용을 수정 삭제 처리 된다.
+	2) 일정의 경우 일정을 늘리거나 클릭후 드래그 하여 다른 일정으로 드랍시 일정 변경된다
+2. 처리순서
+	1) sql 작성(수정삭제)
+	2) dao 처리
+	3) service/ controller호출
+	4)화면단 처리
+	-상세화면에서 변경후 수정버튼 클릭시 수정 ajax호출
+	-상세 화면에서 변경후 수정버튼 클릭시 삭제 ajax호출
+	-일정 늘이기/ 일정 드래그앤 드랍시 수정 ajax 홏ㄹ
 		 
 		 
 		 

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    import="backweb.vo.*" 
-    import="backweb.a04_database.*" 
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -30,15 +28,46 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
+		// $("선택자").css("속성","속성값") : css 속성..
+		$("h2").text("클릭해보실래요?").css("color","red")
+		var colors = ['red','orange','yellow','green',
+					  'blue','navy','purple']
+		$("h2").click(function(){
+			$("h2").text("변경 파랑둥이").css("color","blue")
+		})
+		var idx=0;
+		$("h3").click(function(){
+			// $(this) click대상객체..
+			// idx++%7  1... 6, 7, 8, .... 10 .....
+			//                  0  1 ....  
+			$(this).css("color",colors[ idx++%7 ])
+		})
+		var aligns = ["left","center","right"]
+		var aIdx = 0;
+		$("h4").click(function(){
+			var align = aligns[ aIdx++%3 ]
+			$(this).attr("align",align ).text(align)
+		})
+		// chBtn 클릭시 마다, h5의 과일명이 변경되면서 글자색상도 변경되게 처리하세요.
+		var fruits = ['사과','바나나','키위']
+		var fcolors = ['red','yellow','green']
+		var chIdx = 0;
+		$("#chBtn").click(function(){
+			$("h5").text(fruits[chIdx%3]).css("color",fcolors[chIdx++%3])
+		})
 	});
 </script>
 </head>
-
 <body>
 <div class="jumbotron text-center">
-  <h2>세번째 스프링</h2>
-
+  <h2>타이틀</h2>
+  <h3>Touch me!!!^^</h3>
+  <h3>Touch me!!!^^</h3>
+  <h3>Touch me!!!^^</h3>
+  <h3>Touch me!!!^^</h3>
+  <h4>left</h4>
+  <button id="chBtn" class="btn btn-info" type="button">변신은 무죄 (변신!!)</button><br>
+  <h5></h5> 	
 </div>
 <%-- 
 		
