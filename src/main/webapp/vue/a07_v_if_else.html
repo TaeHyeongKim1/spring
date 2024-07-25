@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css">
+<style>
+td {
+	text-align: center;
+}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue" type="text/javascript"></script>
+<script
+	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
+	type="text/javascript"></script>
+<script type="text/javascript">
+/*
+# v-if-else
+1. 여러조건이 나열될 때, 사용한다.
+2. 기본 구문
+	<요소객체 v-if="조건1">
+	<요소객체 v-else-if="조건2">
+	<요소객체 v-else-if="조건3">
+	<요소객체 v-else="그외">
+ 
+ '25'*'3' ==> 75
+ '25' + '5' ==> 255 
+ '25' - '5' ==> 20
+ */
+	$(document).ready(function(){
+		var model = {msg:"v-if 문 처리", balance:0,kor:0,eng:0,math:0}
+		var vm = Vue.createApp({
+			name:"App",
+			data(){
+				return model;
+			}
+		}).mount(".container")
+		// ex)1단계 입력한 점수에 따라서 학점 계산 처리하세요..점수:[   ] 등급:[A/B/C/D/E/F]
+		// ex)2단계 입력한 점수(국어/영어/수학)에 따라서 평균점수 기준으로 학점 계산 처리하세요..
+		//    국어점수:[   ]영어점수:[   ]수학점수:[   ] 등급:[A/B/C/D/E/F]
+		//      
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h2>{{msg}}</h2>
+		</div>
+	<form id="frm01" class="form" method="post">
+			<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+				<input class="form-control mr-sm-2" placeholder="국어점수를 입력" v-model="kor">
+				<input class="form-control mr-sm-2" placeholder="영어점수를 입력" v-model="eng">
+				<input class="form-control mr-sm-2" placeholder="수학점수를 입력" v-model="math">
+			</nav>
+		</form>
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr class="table-success text-center">
+					<th>총점</th><th>평균</th><th>학점등급</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{parseInt(kor)+parseInt(eng)+parseInt(math)}}</td>
+					<td>{{(parseInt(kor)+parseInt(eng)+parseInt(math))/3}}</td>
+					<td v-if="(parseInt(kor)+parseInt(eng)+parseInt(math))/3>=90">A학점</td>
+					<td v-else-if="(parseInt(kor)+parseInt(eng)+parseInt(math))/3>=80">B학점</td>
+					<td v-else-if="(parseInt(kor)+parseInt(eng)+parseInt(math))/3>=70">C학점</td>
+					<td v-else-if="(parseInt(kor)+parseInt(eng)+parseInt(math))/3>=60">D학점</td>
+					<td v-else>F학점</td>
+				</tr>
+			</tbody>
+		</table>
+				
+		
+		<form id="frm01" class="form" method="post">
+			<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+				<input class="form-control mr-sm-2" placeholder="잔고를 입력하세요"
+					v-model="balance">
+				<!-- 
+				v-show: 기본적으로 해당 요소객체를 로딩한 후, 보였다가/보이지 않는 처리를 조건에 처리할 때,
+				주로 활용된다. v-if는 로딩되지 않는 상태에서 다시 로딩하는 처리를 한다.
+				 -->	
+				<img v-show="balance<0" src="https://contactsvc.bmaster.kro.kr/img/error.png"
+					title="마이너스는 허용하지 않습니다."
+					style="width:15px;height:15px;background:white;">					
+			</nav>
+		</form>
+
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr class="table-success text-center">
+					<th>회원등급</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td v-if="balance>=1000000">Gold</td>
+					<td v-else-if="balance>=500000">Silver</td>
+					<td v-else-if="balance>=200000">Bronze</td>
+					<td v-else>Basic</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

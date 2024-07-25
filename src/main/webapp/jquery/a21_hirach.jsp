@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
     %>
@@ -28,62 +28,45 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		$("form").submit(function(event){
-			event.preventDefault(); // submit자동 처리 되는 옵션 방지 처리..(기본 이벤트 방지 역할..)
+		$("#regFruBtn").click(function(){
+			var fruitVal = $("#fruit").val()
+			$("p").append("<span>"+fruitVal+"</span>,")
+			$("#fruit").val("").focus()
+			//$("p").append( $("<span></span>").text(fruitVal).html()+",")
 		})
-		// ==> 이후에 submit()를 처리할려면 이벤트 핸들러 메서드 정의 $("form").submit() 직접적으로 처리
-		//   처리 통해서 한다.
-		// type="button"에 대한 가상클래스 선언 :button
-		// <input type="button", <button > 태그는 모두 다 공통 css로 설정 가능..
-		$(":button").css("border","3px red solid")
-		// 비활성화 버트늘 눌렀을 때 처리 내용
-		$("#disable").click(function(){
-			// 활성화된 내용을 비활성화로 변경..
-			$("input[type=text]:enabled").removeAttr("enabled") //  enabled 속성값 삭제..
-			// 주의) 특정 속성을 변경시 기존 속성값을 삭제 후, 신규속성값 설정..
-			$("input[type=text]:enabled").attr("disabled","disabled") //  enabled 속성값 삭제..
+		$("#regMeatBtn").click(function(){
+			var meatVal = $("#meat").val()
+			$("p").append("<b>"+meatVal+"</b>,")
+			$("#meat").val("").focus()
+			//$("p").append( $("<b></b>").text(meatVal).html()+",")
+		})		
+		$("#findFrui").click(function(){
+			$("p").find("span").css("background","pink")
 		})
-		$("#enable").click(function(){
-			// 활성화를 클릭시, 비활성화된 내용을 활성화 처리
-			$("input[type=text]:disabled").removeAttr("disabled") //  enabled 속성값 삭제..
-			// 주의) 특정 속성을 변경시 기존 속성값을 삭제 후, 신규속성값 설정..
-			$("input[type=text]:disabled").attr("enabled","enabled") //  enabled 속성값 삭제..
-		})
+		$("#findMeat").click(function(){
+			$("p").find("b").css("background","yellow")
+		})		
 	});
-	
 </script>
 </head>
-
 <body>
 <div class="jumbotron text-center">
-  <h2>form요소 객체 활성/비활성화 처리</h2>
-  <form>
-  	<fieldset>
-  		<input type="text" id="first">
-  		<input type="text" id="second" disabled="disabled">
-  		<input type="button"  id="enable" value="활성화">
-  		<button  id="disable">비활성화</button>
-  		<%--
-  		# 주의
-  		<button  id="disable">disable</button>
-  		button 태그의 형태는 default type ? submit 이기에 그냥 이벤트 핸들러 메서드를
-  		연결처리하면 바로 전송이 되어 처리가 원하는데로 되지 않는 경우가 많다.
-  		왜냐하면? 서버로 전송된 이후 화면에서 처리되기 때문이다.
-  		기능 이벤트 처리시는 반드시 type="button"으로 설정하여야 한다..
-  		
-  		 --%>
-  		
-  	</fieldset>
-  </form>
+  <h2>계층 구조 처리 연습</h2>
+  구매할 과일 : <input type="text" id="fruit"><input type="button" id="regFruBtn" value="장바구니담기"><br>
+  구매할 육류 : <input type="text" id="meat"><input type="button" id="regMeatBtn" value="장바구니담기"><br>
+  <h3>장바구니리스트</h3>
+  <p></p>
+  <input type="button" id="findFrui" value="과일확인">
+  <input type="button" id="findMeat" value="육류확인">
+
 </div>
 <%-- 
-# show/hide와 enabled/disabled의 차이
-1. hide()시에 단순히, 보이지 않을 뿐이지, 요청객체로서 의미를 가지기에
-	요청값이 전달 된다.
-2. 하지만 disabled된 요청객체는 자체의 기능이 비활성화되 것이기에 
-	요청객체로서 요청값 전달이 되지 않는다.(주의)
-		
+	// ex) 구매할 과일 :[   ] [장바구니 담기]
+	//     구매할 육류 :[   ] [장바구니 담기]
+	//     위 내용에서 장바구니 담기를 클릭시, 아래 항목에 담아지게 처리
+	//     단, 과일은 span으로 입력, 육류는 b 으로 입력 처리
+	//     [과일확인] [육류확인] ==> 각각 클릭시, 구분하여 색상표현 핑크/노랑색
+	//     사과, 바나나, 소고기, 딸기, 돼지고기		
 --%>
 <div class="container">
 	<form id="frm01" class="form"  method="post">

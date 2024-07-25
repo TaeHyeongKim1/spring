@@ -4,5 +4,9 @@
 	jdbc.url=jdbc:oracle:thin:@localhost:1521:xe
 	jdbc.user=scott
 	jdbc.pwd=tiger
+	
+	mailaccount=taeheong1996@gmail.com
+	mailpwd=girmdhenrqneoljx
+	#${mailaccount}
 # 2. 파일업로드 위치경로
 	user.upload=C:/a00_javaexp/workspace1/springweb/src/main/webapp/z01_upload

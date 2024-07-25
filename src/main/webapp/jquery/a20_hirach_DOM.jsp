@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
     %>
@@ -28,62 +28,43 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		$("form").submit(function(event){
-			event.preventDefault(); // submit자동 처리 되는 옵션 방지 처리..(기본 이벤트 방지 역할..)
-		})
-		// ==> 이후에 submit()를 처리할려면 이벤트 핸들러 메서드 정의 $("form").submit() 직접적으로 처리
-		//   처리 통해서 한다.
-		// type="button"에 대한 가상클래스 선언 :button
-		// <input type="button", <button > 태그는 모두 다 공통 css로 설정 가능..
-		$(":button").css("border","3px red solid")
-		// 비활성화 버트늘 눌렀을 때 처리 내용
-		$("#disable").click(function(){
-			// 활성화된 내용을 비활성화로 변경..
-			$("input[type=text]:enabled").removeAttr("enabled") //  enabled 속성값 삭제..
-			// 주의) 특정 속성을 변경시 기존 속성값을 삭제 후, 신규속성값 설정..
-			$("input[type=text]:enabled").attr("disabled","disabled") //  enabled 속성값 삭제..
-		})
-		$("#enable").click(function(){
-			// 활성화를 클릭시, 비활성화된 내용을 활성화 처리
-			$("input[type=text]:disabled").removeAttr("disabled") //  enabled 속성값 삭제..
-			// 주의) 특정 속성을 변경시 기존 속성값을 삭제 후, 신규속성값 설정..
-			$("input[type=text]:disabled").attr("enabled","enabled") //  enabled 속성값 삭제..
-		})
-	});
 	
+	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>form요소 객체 활성/비활성화 처리</h2>
-  <form>
-  	<fieldset>
-  		<input type="text" id="first">
-  		<input type="text" id="second" disabled="disabled">
-  		<input type="button"  id="enable" value="활성화">
-  		<button  id="disable">비활성화</button>
-  		<%--
-  		# 주의
-  		<button  id="disable">disable</button>
-  		button 태그의 형태는 default type ? submit 이기에 그냥 이벤트 핸들러 메서드를
-  		연결처리하면 바로 전송이 되어 처리가 원하는데로 되지 않는 경우가 많다.
-  		왜냐하면? 서버로 전송된 이후 화면에서 처리되기 때문이다.
-  		기능 이벤트 처리시는 반드시 type="button"으로 설정하여야 한다..
-  		
-  		 --%>
-  		
-  	</fieldset>
-  </form>
+  <h2>타이틀</h2>
+
 </div>
 <%-- 
-# show/hide와 enabled/disabled의 차이
-1. hide()시에 단순히, 보이지 않을 뿐이지, 요청객체로서 의미를 가지기에
-	요청값이 전달 된다.
-2. 하지만 disabled된 요청객체는 자체의 기능이 비활성화되 것이기에 
-	요청객체로서 요청값 전달이 되지 않는다.(주의)
-		
+# jquery DOM 계층 구조..
+1. html 태그는 기본적을 계층 구조로 되어 있고, 이것에 대한 접근을 계층 구조 메서드에
+	의해서 호출하여 처리를 하고 있다.
+2. 계층 구조 기능 메서드
+	1) children() : 하위에 있는 요소 객체들 접근..
+		<div>
+			<p>
+			<a>
+			<h1>
+		div 입장에서 p, a, h1 태그는 하위에 요소객체이다.
+	2) parents() : 상위에 있는 요소 객체들 접근.
+		<body>
+			<div>
+				<p>
+					<h1>
+		h1 입장에서는 p, div, body는 상위의 요소객체들이다.
+	3) parent() : 바로 상위에 있는 요소 객체
+		<div>
+			<p>
+			<h1>
+		p,h1은 div가 바로 상위에 있는 요소 객체이다.
+	4) find("찾는 요소") : 하위에 있는 요소 객체를 찾는 처리..
+	5) next()/prev() : 같은 레벨의 요소에서 이전 요소, 이후 요소 객체에 대한 선택을
+		할 때, 주로 사용된다.
+			
+				
 --%>
 <div class="container">
 	<form id="frm01" class="form"  method="post">
